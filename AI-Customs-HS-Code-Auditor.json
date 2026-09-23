@@ -1,0 +1,94 @@
+{
+  "name": "AI-Customs-HS-Code-Auditor",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "1726edc7-560d-4ab9-998f-24397e2c6dde",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "Automatic lithium-ion battery cell sorting machine for electric vehicle manufacturing\n",
+        "options": {
+          "systemMessage": "You are an expert International Trade, Logistics, and Customs Compliance Officer specializing in Harmonized System (HS) code classification and global customs regulations.\n\nA user will provide a product description. Your task is to analyze the product and provide a structured compliance report containing:\n1. Recommended 6-digit (or 8-digit) HS Code.\n2. Product Category / Chapter Breakdown.\n3. Key Compliance Watch-outs, documentation requirements, or potential regulatory flags under standard international trade rules.\n4. Brief justification for the classification.\n\nKeep the response clear, structured, and professional."
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        224,
+        0
+      ],
+      "id": "5d4d01cb-914d-4fee-b5fd-20b4a25812d4",
+      "name": "AI Agent",
+      "retryOnFail": false,
+      "waitBetweenTries": 5,
+      "maxTries": 3
+    },
+    {
+      "parameters": {
+        "modelName": "models/gemini-3.6-flash",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1.1,
+      "position": [
+        96,
+        208
+      ],
+      "id": "152b410e-8c66-498f-a62d-af1c4ddc8634",
+      "name": "Google Gemini Chat Model",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "MePE5NYiqcbOdRE9",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "fb01827a-be86-4fde-b6a1-0668e70f9d77",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "3d0834a0f7e8d41537d357672f73c3e30cff3aea6b58b12ff7fbead17b6c9049"
+  },
+  "nodeGroups": [],
+  "id": "C34DR5a60xObMw9G",
+  "tags": []
+}
